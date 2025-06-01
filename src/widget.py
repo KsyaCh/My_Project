@@ -1,4 +1,4 @@
-import masks
+from src.masks import get_mask_card_number, get_mask_account
 
 
 def mask_account_card(data: str) -> str:
@@ -8,13 +8,13 @@ def mask_account_card(data: str) -> str:
         for symbol in data:
             if symbol.isdigit():
                 account_number += symbol
-        mask_result = masks.get_mask_account(account_number)
+        mask_result = get_mask_account(account_number)
     else:
         card_number = ""
         for symbol in data:
             if symbol.isdigit():
                 card_number += symbol
-        mask_result = masks.get_mask_card_number(card_number)
+        mask_result = get_mask_card_number(card_number)
     return mask_result
 
 
