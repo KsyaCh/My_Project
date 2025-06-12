@@ -1,6 +1,7 @@
 from src.widget import mask_account_card
+from src.masks import get_mask_card_number
 
 if __name__ == "__main__":
-    result = mask_account_card("Счет 73654108430135874305")
+    result = get_mask_card_number("")
 
     print(result)
