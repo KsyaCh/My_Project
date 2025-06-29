@@ -1,7 +1,9 @@
 import pytest
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
-transactions = (
-    [
+
+@pytest.fixture
+def transactions():
+    return [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -78,17 +80,16 @@ transactions = (
             "to": "Счет 14211924144426031657"
         }
     ]
-)
 
 
-def test_filter_by_currency():
+def test_filter_by_currency(transactions):
     usd_transactions = list(filter_by_currency(transactions, "USD"))
     assert len(usd_transactions) == 3
-    assert usd_transactions[0]["operationAmount"]["currency"]["code"] == "USD"
-    assert usd_transactions[1]["operationAmount"]["currency"]["code"] == "USD"
+    for t in usd_transactions:
+        assert t["operationAmount"]["currency"]["code"] == "USD"
 
 
-def test_transaction_descriptions():
+def test_transaction_descriptions(transactions):
     descriptions = list(transaction_descriptions(transactions))
     expected = [
         "Перевод организации",
